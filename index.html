@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation - 私たちの結婚式へご招待いたします</title>
+    <title>Wedding Invitation - 和輝 ＆ 真奈</title>
     <style>
         /* ----------------------------------------------------
            Reset & Base Styles
@@ -15,8 +15,8 @@
             margin: 0;
             padding: 0;
             font-family: 'Times New Roman', 'Noto Serif JP', 'Yu Mincho', serif;
-            background-color: #f7f5f0; /* 温かみのある上品なオフホワイト */
-            color: #4a4641; /* 柔らかいダークブラウン */
+            background-color: #f7f5f0;
+            color: #4a4641;
             line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
@@ -27,22 +27,26 @@
         }
 
         /* ----------------------------------------------------
-           Utility Classes
+           Utility Classes & Layout
         ---------------------------------------------------- */
         .container {
             max-width: 650px;
             margin: 0 auto;
             padding: 0 24px;
+            position: relative;
+            z-index: 2;
         }
         .text-center {
             text-align: center;
         }
         .section-padding {
-            padding: 80px 0;
+            padding: 100px 0;
         }
+        
+        /* フェードインアニメーション */
         .fade-in {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(25px);
             transition: opacity 1.2s ease, transform 1.2s ease;
         }
         .fade-in.visible {
@@ -59,9 +63,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #e5e0d8; /* 仮の写真用プレースホルダー色 */
-            /* お二人の写真を使用する場合は以下のコメントアウトを解除してください */
-            /* background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url('hero.jpg'); */
+            /* 前撮り画像を入れる際は、ここにパスを指定してください */
+            background-color: #e5e0d8; 
+            /* background-image: linear-gradient(rgba(0,0,0,0.15), rgba(0,0,0,0.15)), url('pre-wedding.jpg'); */
             background-size: cover;
             background-position: center;
             color: #4a4641;
@@ -70,28 +74,29 @@
             padding: 20px;
         }
         .hero-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
             font-family: 'Times New Roman', serif;
             font-style: italic;
         }
         .hero-subtitle {
             font-size: 1.1rem;
-            letter-spacing: 0.3em;
+            letter-spacing: 0.4em;
             margin-bottom: 40px;
+            text-transform: uppercase;
         }
         .hero-date {
             font-size: 1.2rem;
             border-top: 1px solid #4a4641;
             border-bottom: 1px solid #4a4641;
-            padding: 8px 24px;
-            letter-spacing: 0.1em;
+            padding: 10px 30px;
+            letter-spacing: 0.15em;
         }
         .scroll-down {
             position: absolute;
-            bottom: 30px;
-            font-size: 0.8rem;
-            letter-spacing: 0.2em;
+            bottom: 40px;
+            font-size: 0.75rem;
+            letter-spacing: 0.25em;
             animation: bounce 2s infinite;
         }
         @keyframes bounce {
@@ -101,7 +106,7 @@
         }
 
         /* ----------------------------------------------------
-           Greeting Section
+           Greeting Section (Typing Effect)
         ---------------------------------------------------- */
         .greeting-section {
             background-color: #ffffff;
@@ -109,14 +114,44 @@
         }
         .greeting-text {
             font-size: 1rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             text-align: center;
             white-space: pre-wrap;
+            min-height: 250px;
+            line-height: 2.2;
+        }
+        /* カーソル点滅エフェクト */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+            color: #bcaf9b;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
         .names {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             margin-top: 40px;
-            letter-spacing: 0.2em;
+            letter-spacing: 0.3em;
+        }
+
+        /* ----------------------------------------------------
+           SVG Path Animation (飾り罫線)
+        ---------------------------------------------------- */
+        .svg-divider {
+            margin: 60px auto;
+            width: 150px;
+            height: auto;
+        }
+        .draw-path {
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            transition: stroke-dashoffset 2.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-in.visible .draw-path {
+            stroke-dashoffset: 0;
         }
 
         /* ----------------------------------------------------
@@ -126,11 +161,12 @@
             background-color: #fcfbfa;
         }
         .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 40px;
+            font-size: 2rem;
+            margin-bottom: 50px;
             position: relative;
             display: inline-block;
-            padding-bottom: 8px;
+            padding-bottom: 10px;
+            font-family: 'Times New Roman', serif;
         }
         .section-title::after {
             content: '';
@@ -138,13 +174,13 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
+            width: 30px;
             height: 1px;
             background-color: #bcaf9b;
         }
         .info-table {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 30px;
             border-collapse: collapse;
         }
         .info-table tr {
@@ -154,27 +190,29 @@
             border-bottom: none;
         }
         .info-table th, .info-table td {
-            padding: 20px 10px;
+            padding: 24px 10px;
             text-align: left;
             vertical-align: top;
         }
         .info-table th {
-            width: 30%;
+            width: 25%;
             font-weight: normal;
             color: #8c8273;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.2em;
         }
         .info-table td {
-            width: 70%;
+            width: 75%;
         }
         .map-container {
-            margin-top: 30px;
-            filter: grayscale(20%);
+            margin-top: 40px;
+            filter: grayscale(15%);
             border: 1px solid #eae5dc;
+            padding: 5px;
+            background: #fff;
         }
         .map-container iframe {
             width: 100%;
-            height: 250px;
+            height: 300px;
             border: 0;
             display: block;
         }
@@ -185,57 +223,56 @@
         .countdown-section {
             background-color: #bcaf9b;
             color: #ffffff;
+            padding: 60px 0;
         }
         .countdown-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             margin-top: 30px;
         }
         .countdown-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 70px;
+            min-width: 60px;
         }
         .countdown-number {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-family: 'Times New Roman', serif;
-            font-weight: bold;
+            font-weight: 300;
             line-height: 1;
         }
         .countdown-label {
             font-size: 0.75rem;
-            margin-top: 4px;
-            letter-spacing: 0.1em;
+            margin-top: 8px;
+            letter-spacing: 0.2em;
             opacity: 0.8;
         }
 
         /* ----------------------------------------------------
-           RSVP Section (Form Button)
+           RSVP Section
         ---------------------------------------------------- */
         .rsvp-section {
             background-color: #ffffff;
         }
         .rsvp-deadline {
             font-size: 1.1rem;
-            color: #c75a5a; /* 締め切り用の落ち着いたアクセントカラー */
-            margin-bottom: 30px;
+            color: #b36b6b;
+            margin-bottom: 40px;
             font-weight: bold;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
         }
         .btn-rsvp {
             display: inline-block;
             background-color: #4a4641;
             color: #ffffff;
             text-decoration: none;
-            padding: 16px 48px;
-            border-radius: 0;
+            padding: 18px 54px;
             font-size: 1.1rem;
             letter-spacing: 0.2em;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             border: 1px solid #4a4641;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
         .btn-rsvp:hover {
             background-color: #ffffff;
@@ -244,7 +281,7 @@
         .rsvp-note {
             font-size: 0.85rem;
             color: #8c8273;
-            margin-top: 20px;
+            margin-top: 24px;
         }
 
         /* ----------------------------------------------------
@@ -252,37 +289,35 @@
         ---------------------------------------------------- */
         footer {
             background-color: #f7f5f0;
-            padding: 40px 0;
+            padding: 50px 0;
             font-size: 0.8rem;
             color: #bcaf9b;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.15em;
         }
 
         /* ----------------------------------------------------
            Responsive Styles
         ---------------------------------------------------- */
         @media (max-width: 600px) {
-            .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 0.95rem; }
-            .section-title { font-size: 1.5rem; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 0.9rem; }
+            .section-title { font-size: 1.6rem; }
             .info-table th, .info-table td {
                 display: block;
                 width: 100%;
-                padding: 10px 0;
+                padding: 12px 0;
             }
             .info-table th {
                 padding-bottom: 0;
                 color: #bcaf9b;
             }
             .info-table tr {
-                padding: 10px 0;
-                display: block;
+                padding: 15px 0;
             }
-            .countdown-number { font-size: 1.8rem; }
-            .btn-rsvp { width: 100%; text-align: center; padding: 16px 0; }
+            .countdown-number { font-size: 2rem; }
+            .btn-rsvp { width: 100%; padding: 18px 0; }
         }
     </style>
-    <!-- Webフォントのインポート（明朝体） -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
@@ -292,7 +327,7 @@
     <!-- 1. HERO SECTION -->
     <section class="hero">
         <div class="hero-title">Wedding Invitation</div>
-        <div class="hero-subtitle">Kazuki ＆ Mana</div>
+        <div class="hero-subtitle">Kazuki & Mana</div>
         <div class="hero-date">2026.11.07 SAT</div>
         <div class="scroll-down">SCROLL</div>
     </section>
@@ -301,8 +336,8 @@
     <section class="greeting-section section-padding text-center">
         <div class="container fade-in">
             <h2 class="section-title">GREETING</h2>
-            <div class="greeting-text">
-謹啓
+            <!-- タイピングエフェクト用のコンテナ -->
+            <div class="greeting-text typing-effect typing-cursor">謹啓
 秋のさわやかな風が心地よい季節となりました
 皆様におかれましては 益々ご清祥のこととお慶び申し上げます
 
@@ -312,24 +347,31 @@
 
 ご多用中誠に恐縮ではございますが
 ぜひご出席いただければ幸いです
-                                                      謹白
-            </div>
-            <div class="names">
+                                                      謹白</div>
+            
+            <div class="names fade-in">
                 清家 和輝<br>
                 岡田 真奈
             </div>
         </div>
     </section>
 
+    <!-- SVG PATH ANIMATION (飾り罫線の描画エフェクト) -->
+    <div class="text-center fade-in">
+        <svg viewBox="0 0 150 30" class="svg-divider">
+            <path class="draw-path" d="M 10,15 C 40,5 60,30 75,15 C 90,0 110,25 140,15" fill="none" stroke="#bcaf9b" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </div>
+
     <!-- 3. DETAILS SECTION -->
     <section class="details-section section-padding text-center">
         <div class="container fade-in">
-            <h2 class="section-title">INFOMATION</h2>
+            <h2 class="section-title">INFORMATION</h2>
             <table class="info-table">
                 <tr>
                     <th>日時</th>
                     <td>
-                        <strong>2026年11月07日 (土)</strong><br>
+                        <strong>2026年11月7日 (土)</strong><br>
                         受付：午前11:00 〜<br>
                         挙式：午前11:30 〜<br>
                         披露宴：午後12:30 〜
@@ -338,30 +380,37 @@
                 <tr>
                     <th>会場</th>
                     <td>
-                        <strong>アルカンシエル</strong><br>
-                        東京都千代田区麹町1-2-3<br>
-                        TEL: 03-0000-0000
+                        <strong>アルカンシエル luxe mariage 名古屋</strong><br>
+                        愛知県名古屋市西区牛島町4-1<br>
+                        TEL: 052-561-2214
                     </td>
                 </tr>
                 <tr>
                     <th>アクセス</th>
                     <td>
-                        東京メトロ半蔵門線「半蔵門駅」3番出口より徒歩2分<br>
-                        有楽町線「麹町駅」1番出口より徒歩7分
+                        地下鉄東山線・桜通線「名古屋駅」より徒歩5分<br>
+                        JR「名古屋駅」桜通口より徒歩7分<br>
+                        ※ルーセントアベニューL4出口すぐ
                     </td>
                 </tr>
             </table>
 
-            <!-- Google Map 埋め込み (サンプル: 皇居周辺) -->
-            <!-- 実際の会場の埋め込みコード（iframe）に差し替えてください -->
-            <div class="map-container">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1939.1253383650808!2d136.87946445196144!3d35.17639064682643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376ebd97727d1%3A0xc8de164dc3429b2f!2z44Ki44Or44Kr44Oz44K344Ko44OrIGx1eGUgbWFyaWFnZSDlkI3lj6TlsYs!5e0!3m2!1sja!2sjp!4v1779323249826!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <!-- Google Map 埋め込み -->
+            <div class="map-container fade-in">
+                <iframe src="https://maps.google.co.jp/maps?output=embed&q=アルカンシエル+luxe+mariage+名古屋&z=16" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
     </section>
 
+    <!-- SVG PATH ANIMATION (飾り罫線の描画エフェクト・下部) -->
+    <div class="text-center fade-in">
+        <svg viewBox="0 0 150 30" class="svg-divider" style="transform: scaleY(-1);">
+            <path class="draw-path" d="M 10,15 C 40,5 60,30 75,15 C 90,0 110,25 140,15" fill="none" stroke="#bcaf9b" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+    </div>
+
     <!-- 4. COUNTDOWN SECTION -->
-    <section class="countdown-section section-padding text-center">
+    <section class="countdown-section text-center">
         <div class="container fade-in">
             <h2 class="section-title" style="color:#fff;">COUNTDOWN</h2>
             <p>挙式まであと</p>
@@ -391,11 +440,9 @@
         <div class="container fade-in">
             <h2 class="section-title">RSVP</h2>
             <p>お手数ではございますが ご出席のご都合を<br>下記フォームよりご回答いただけますようお願い申し上げます</p>
-            <div class="rsvp-deadline">ご回答期限：2026年9月15日 (火)</div>
+            <div class="rsvp-deadline">ご回答期限：2026年9月30日 (水)</div>
             
-            <!-- Googleフォーム等のリンクボタン -->
-            <!-- hrefの中身をご自身のフォームURLに書き換えてください -->
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfXXXXXXXXXXXXX/viewform?usp=sf_link" target="_blank" rel="noopener noreferrer" class="btn-rsvp">
+            <a href="https://docs.google.com/forms/..." target="_blank" rel="noopener noreferrer" class="btn-rsvp">
                 出欠回答フォームを開く
             </a>
             
@@ -411,59 +458,85 @@
     </footer>
 
     <!-- ----------------------------------------------------
-       JavaScript (Scroll Animation & Countdown)
+       JavaScript
     ---------------------------------------------------- -->
     <script>
-        // 1. スクロールに応じたフェードインアニメーション
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /* 1. スクロール時のフェードイン ＆ パス描画 */
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); // 一度表示されたら監視を解除
+            fadeElements.forEach(el => observer.observe(el));
+
+            /* 2. GREETINGセクションのタイピングエフェクト */
+            const typingTarget = document.querySelector('.typing-effect');
+            const textToType = typingTarget.innerText;
+            typingTarget.innerText = ''; 
+            
+            let hasTyped = false;
+            const typingObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !hasTyped) {
+                        hasTyped = true;
+                        let i = 0;
+                        const speed = 60; // タイピング速度
+                        
+                        function typeWriter() {
+                            if (i < textToType.length) {
+                                typingTarget.innerText += textToType.charAt(i);
+                                i++;
+                                setTimeout(typeWriter, speed);
+                            } else {
+                                typingTarget.classList.remove('typing-cursor');
+                            }
+                        }
+                        setTimeout(typeWriter, 500); 
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            typingObserver.observe(typingTarget);
+
+            /* 3. カウントダウンタイマー */
+            // 挙式時間を仮に11:30として設定
+            const targetDate = new Date('2026-11-07T11:30:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const difference = targetDate - now;
+
+                if (difference <= 0) {
+                    document.getElementById('days').innerText = '00';
+                    document.getElementById('hours').innerText = '00';
+                    document.getElementById('mins').innerText = '00';
+                    document.getElementById('secs').innerText = '00';
+                    return;
                 }
-            });
-        }, observerOptions);
 
-        fadeElements.forEach(el => observer.observe(el));
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((difference % (1000 * 60)) / 1000);
 
-        // 2. カウントダウンタイマー
-        // ターゲット日時を設定 (挙式日: 2026年10月24日 11:30)
-        const targetDate = new Date('2026-11-07T11:30:00').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const difference = targetDate - now;
-
-            if (difference <= 0) {
-                document.getElementById('days').innerText = '00';
-                document.getElementById('hours').innerText = '00';
-                document.getElementById('mins').innerText = '00';
-                document.getElementById('secs').innerText = '00';
-                return;
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('mins').innerText = String(mins).padStart(2, '0');
+                document.getElementById('secs').innerText = String(secs).padStart(2, '0');
             }
 
-            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById('days').innerText = String(days).padStart(2, '0');
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('mins').innerText = String(mins).padStart(2, '0');
-            document.getElementById('secs').innerText = String(secs).padStart(2, '0');
-        }
-
-        // 初回実行と1秒ごとの定期実行
-        updateCountdown();
-        setInterval(updateCountdown, 1000);
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
     </script>
 </body>
 </html>
